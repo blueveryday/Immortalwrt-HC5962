@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/runner/lede
+cd /home/runner/immortalwrt
 
 # Enter your commands here, e.g.
 # echo "Success!"
