@@ -1,9 +1,9 @@
-name: Build-lede
+name: Build-immortalwrt
 
 on:
   push:
     branches: 
-      - master
+      - openwrt-21.02
 #  release:
 #    types: published
 #  schedule:
@@ -40,32 +40,32 @@ jobs:
       run: |
         cd /home/runner
         bash ${GITHUB_WORKSPACE}/clone_source.sh
-        sudo chown -R runner:runner lede
+        sudo chown -R runner:runner immortalwrt
     - name: Before Build
       run: |
         /bin/bash ${GITHUB_WORKSPACE}/before_build.sh
-        cp -fpR ${GITHUB_WORKSPACE}/. /home/runner/lede/
+        cp -fpR ${GITHUB_WORKSPACE}/. /home/runner/immortalwrt/
 
 #    - name: SSH connection to Actions
 #      uses: csexton/debugger-action@master
 
     - name: Start Build
       run: | 
-        cd /home/runner/lede
+        cd /home/runner/immortalwrt
         mv .config .config_default
         rm -f .config.old
         config_names="$(ls .config*)"
         for i in $config_names;do mv -f $i .config; make defconfig; make -j$[$(nproc)+1]; rm -rf build_dir/target* build_dir/toolchain* staging_dir/target* staging_dir/toolchain*; done
     - name: After Build
       run: |
-        /bin/bash /home/runner/lede/after_build.sh
+        /bin/bash /home/runner/immortalwrt/after_build.sh
     - name: Upload Packages
       uses: actions/upload-artifact@v2
       with:
         name: Packages
-        path: /home/runner/lede/bin/packages/
+        path: /home/runner/immortalwrt/bin/packages/
     - name: Upload Firmwares
       uses: actions/upload-artifact@v2
       with:
         name: Firmwares
-        path: /home/runner/lede/bin/targets/
+        path: /home/runner/immortalwrt/bin/targets/
