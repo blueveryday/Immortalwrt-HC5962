@@ -3,7 +3,7 @@ name: Build-immortalwrt
 on:
   push:
     branches: 
-      - openwrt-21.02
+      - master
 #  release:
 #    types: published
 #  schedule:
