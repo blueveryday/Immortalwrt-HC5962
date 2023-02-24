@@ -1,6 +1,7 @@
 #!/bin/bash
 
-git clone "https://github.com/immortalwrt/immortalwrt.git"
+#git clone "https://github.com/immortalwrt/immortalwrt.git"
+git clone -b openwrt-21.02 --single-branch https://github.com/immortalwrt/immortalwrt
 
 pushd "immortalwrt"; 
 
